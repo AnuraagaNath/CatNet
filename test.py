@@ -11,7 +11,7 @@ model = keras.models.load_model('./CatNet/')
 class_indices = joblib.load('./class_indices.joblib')
 
 
-test1, test2 = getTrainValidData('./images')
+test1, test2 = getTrainValidData('./PetImages')
 
 
 print('Test1 image count: ', test1.n)
@@ -20,8 +20,8 @@ test1_loss, test1_accuracy = model.evaluate(test1)
 test2_loss, test2_accuracy = model.evaluate(test2)
 
 print('='*100)
-print(f'Test1 Loss: {test1_loss:.2f}')
-print(f'Test1 Accuracy: {test1_accuracy:.2f}\n')
-print(f'Test2 Loss: {test2_loss:.2f}')
-print(f'Test2 Accuracy: {test2_accuracy:.2f}')
+print(f'Test1 Loss: {test1_loss:.4f}')
+print(f'Test1 Accuracy: {test1_accuracy:.4f}\n')
+print(f'Test2 Loss: {test2_loss:.4f}')
+print(f'Test2 Accuracy: {test2_accuracy:.4f}')
 print('='*100)
