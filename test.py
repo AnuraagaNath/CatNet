@@ -11,7 +11,7 @@ model = keras.models.load_model('./CatNet/')
 class_indices = joblib.load('./class_indices.joblib')
 
 
-test1, test2 = getTrainValidData('./PetImages')
+test1, test2 = getTrainValidData('./images')
 
 
 print('Test1 image count: ', test1.n)
