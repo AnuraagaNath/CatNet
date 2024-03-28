@@ -7,10 +7,13 @@ import joblib
 from glob import glob
 from preprocessing import getTrainValidData
 
+# load model
 model = keras.models.load_model('./CatNet/')
+
+# load class indices
 class_indices = joblib.load('./class_indices.joblib')
 
-
+# divide the data in different class in the folder
 test1, test2 = getTrainValidData('./images')
 
 

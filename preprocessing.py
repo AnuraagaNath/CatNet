@@ -16,7 +16,7 @@ import joblib
 filepath = './PetImages'
 
 
-
+# Data Augmentation
 image_gen = ImageDataGenerator(
         rescale = 1/255.0,
         rotation_range = 20,
@@ -30,10 +30,10 @@ image_gen = ImageDataGenerator(
 
 
 
-
-
-
+# function to get train and validation data using the data augmentation. This method retrieves the data straight from the directory. 
 def getTrainValidData(filepath, target_size=(100,100), batch_size=64, class_mode='binary'):
+
+    # training data generation
     train_generator = image_gen.flow_from_directory(
         directory=filepath,
         target_size=target_size,
@@ -45,6 +45,7 @@ def getTrainValidData(filepath, target_size=(100,100), batch_size=64, class_mode
         seed=42
     )
 
+    # validation data generation
     valid_generator = image_gen.flow_from_directory(
     directory=filepath,
     target_size=target_size,
