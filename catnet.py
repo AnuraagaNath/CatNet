@@ -3,7 +3,9 @@ import tensorflow as tf
 
 print(tf.config.list_physical_devices())
 
+# This model is created using model subclassing method.
 
+# creating custom CNN blocks
 class CatBlock(keras.layers.Layer):
     def __init__(self, filter_size, kernel_size=(3,3), activation='relu', pool_size=(2,2)):
         super(CatBlock, self).__init__()
@@ -16,6 +18,7 @@ class CatBlock(keras.layers.Layer):
         x = self.bn(x, training=training)
         return self.pooling(x)
 
+# creating CNN model
 @keras.saving.register_keras_serializable()
 class CatNet(keras.Model):
     def __init__(self, num_classes=1, rate = 0.5, output_activation='sigmoid', activation='relu'):
