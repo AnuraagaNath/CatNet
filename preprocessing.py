@@ -13,7 +13,7 @@ import joblib
 # tf.config.list_physical_devices()
 
 
-filepath = './PetImages'
+filepath = './microsoft-catsvsdogs-dataset/PetImages'
 
 
 # Data Augmentation
