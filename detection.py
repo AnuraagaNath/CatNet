@@ -3,20 +3,13 @@ import cv2
 import os
 import numpy as np
 from tensorflow import keras
+import video
 
 
 model = keras.models.load_model('./CatNet/')
 
 
 cap = cv2.VideoCapture('./cat.mp4')
-
-# Get video width, height and frames per second
-frame_width = int(cap.get(3))
-frame_height = int(cap.get(4))
-fps = cap.get(cv2.CAP_PROP_FPS)
-print(frame_height, frame_width, fps)
-# Define codec and create a VideoWriter object
-# out = cv2.VideoWriter('output_video.mp4', cv2.VideoWriter_fourcc('m', 'p', '4', 'v'), fps, (100, 100))
 output_folder = './result_images'
 
 count = 0
@@ -28,17 +21,27 @@ while(cap.isOpened()):
         image = np.expand_dims(image, axis=0)
 
         # Make a prediction
-        prediction = np.argmax(model.predict(image))
+        prediction = model.predict(image)
         catdog = {0:'Cat', 1:'Dog'}
-        cv2.putText(frame, catdog[prediction], (100, 50), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 255), 2, cv2.LINE_AA)
-        # out.write(image.astype(np.uint16))
+        animal_class = np.argmax(prediction)
+        cv2.putText(frame, catdog[animal_class] +' '+ str(prediction[0]), (100, 50), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 255), 2, cv2.LINE_AA)
         cv2.imwrite(os.path.join(output_folder, f"frame_{count}.jpg"), frame)
         count += 1
-
     else:
         break
 
+
+
 # Release everything
 cap.release()
-# out.release()
 cv2.destroyAllWindows()
+import re
+
+# Folder containing the saved images
+input_folder = './result_images'
+output_video = 'output_video.mp4'
+
+# Generate output video
+video.generate_output(input_folder, output_video)
+
+
